@@ -109,7 +109,7 @@ public class Arraylist extends Module {
             float x = event.scaledResolution.getScaledWidth() - font.getStringWidth(moduleName) - 5;
 
             if (background.getValue()) {
-                RenderUtil.rectangle(x - 2, y, font.getStringWidth(moduleName) + 4, font.getFontHeight() + 4, new Color(0, 0, 0, backgroundAlpha.getValue().intValue()));
+                RenderUtil.rectangle(x - 2, y, font.getStringWidth(moduleName) + 4, font.getFontHeight() + 5, new Color(0, 0, 0, backgroundAlpha.getValue().intValue()));
             }
 
             if (fontShadow.getValue()) {
@@ -118,7 +118,7 @@ public class Arraylist extends Module {
                 font.drawString(moduleName, x, y + 0.7f, Vanta.instance.moduleStorage.getT(Theme.class).colors[0]);
             }
 
-            y += font.getFontHeight() + (background.getValue() ? 2 : 0) + 2;
+            y += font.getFontHeight() + (background.getValue() ? 3 : 0) + 2;
         }
     }
 }
