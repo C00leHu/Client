@@ -11,7 +11,7 @@ public class FastUse extends Module {
             .name("RMB delay")
             .value(0)
             .min(0)
-            .max(4)
+            .max(1)
             .places(0)
             .build(),
 
@@ -19,7 +19,7 @@ public class FastUse extends Module {
             .name("LMB delay")
             .value(0)
             .min(0)
-            .max(10)
+            .max(1)
             .places(0)
             .build();
 

@@ -38,6 +38,7 @@ public class ModuleStorage extends Storage<Module> {
 
         // Combat
         list.add(new AntiBot());
+        list.add(new Criticals());
         list.add(new KillAura());
         list.add(new Velocity());
 
@@ -48,6 +49,7 @@ public class ModuleStorage extends Storage<Module> {
 
         // Player
         list.add(new Scaffold());
+        list.add(new FastUse());
 
         // Misc
 
