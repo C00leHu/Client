@@ -157,7 +157,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public GuiScreen currentScreen;
     public LoadingScreenRenderer loadingScreen;
     public EntityRenderer entityRenderer;
-    private int leftClickCounter;
+    public int leftClickCounter;
     private final int tempDisplayWidth;
     private final int tempDisplayHeight;
     private IntegratedServer theIntegratedServer;
@@ -173,7 +173,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private final Proxy proxy;
     private ISaveFormat saveLoader;
     private static int debugFPS;
-    private int rightClickDelayTimer;
+    public int rightClickDelayTimer;
     private String serverName;
     private int serverPort;
     public boolean inGameHasFocus;

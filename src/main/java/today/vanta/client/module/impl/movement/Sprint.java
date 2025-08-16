@@ -18,8 +18,6 @@ public class Sprint extends Module {
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         mc.gameSettings.keyBindSprint.pressed = false;
     }
 }

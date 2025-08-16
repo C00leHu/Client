@@ -89,13 +89,11 @@ public class LongJump extends Module {
 
     @Override
     public void onEnable() {
-        super.onEnable();
         offGroundTicks = 0;
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
         if (mc.thePlayer == null) {
             return;
         }

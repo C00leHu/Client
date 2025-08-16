@@ -155,11 +155,6 @@ public class KillAura extends Module {
 
     private Rotation rots;
 
-    @Override
-    public void onDisable() {
-        super.onDisable();
-    }
-
     @EventListen
     private void onSprintAttack(SprintEvent event) {
         if (sprintReset.getValue() && rots != null) {

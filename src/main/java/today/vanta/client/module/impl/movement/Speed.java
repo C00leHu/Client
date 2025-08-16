@@ -61,7 +61,6 @@ public class Speed extends Module {
 
     @Override
     public void onDisable() {
-        super.onDisable();
         mc.gameSettings.keyBindSprint.pressed = false;
         mc.gameSettings.keyBindJump.pressed = false;
         mc.timer.timerSpeed = 1.0f;

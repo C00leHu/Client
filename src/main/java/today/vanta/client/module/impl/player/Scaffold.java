@@ -251,8 +251,6 @@ public class Scaffold extends Module {
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode()));
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), Keyboard.isKeyDown(mc.gameSettings.keyBindSneak.getKeyCode()));
 
@@ -262,8 +260,6 @@ public class Scaffold extends Module {
 
     @Override
     public void onEnable() {
-        super.onEnable();
-
         if (mc.thePlayer == null) {
             return;
         }

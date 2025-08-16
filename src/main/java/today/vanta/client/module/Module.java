@@ -9,7 +9,7 @@ import today.vanta.util.game.IMinecraft;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Module implements IMinecraft {
+public abstract class Module implements IMinecraft {
     public String name, description;
     public Category category;
 
