@@ -1,6 +1,11 @@
 package today.vanta.client.module.impl.combat;
 
+import net.minecraft.item.ItemSword;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C0APacketAnimation;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import today.vanta.Vanta;
 import today.vanta.client.event.impl.game.GameLoopEvent;
 import today.vanta.client.event.impl.game.player.KeepSprintEvent;
@@ -32,6 +37,12 @@ public class KillAura extends Module {
             .name("Sort mode")
             .value("Range")
             .values("Range", "Health", "Armor", "Hurt-time", "Ticks", "Skin color")
+            .build(),
+
+    autoBlockMode = StringSetting.builder()
+            .name("Auto-block mode")
+            .value("None")
+            .values("None", "Vanilla")
             .build();
 
     private final StringSetting swingMode;
@@ -196,6 +207,13 @@ public class KillAura extends Module {
             switch (attackMode.getValue()) {
                 case "Single":
                     if (attackCounter.hasElapsed(calculateAttackDelay(), true) && Vanta.instance.processorStorage.getT(TargetProcessor.class).target.getDistanceToEntity(mc.thePlayer) <= rangeFix) {
+                        if (autoBlockMode.getValue().equals("Vanilla")) {
+                            if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+                                mc.getNetHandler().addToSendQueue(
+                                        new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+                            }
+                        }
+
                         if (!noSwing.getValue())
                             mc.thePlayer.swingItem();
                         else
@@ -208,6 +226,15 @@ public class KillAura extends Module {
                             case "Blatant":
                                 mc.playerController.attackEntity(mc.thePlayer, Vanta.instance.processorStorage.getT(TargetProcessor.class).target);
                                 break;
+                        }
+
+                        if (autoBlockMode.getValue().equals("Vanilla")) {
+                            if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+                                mc.getNetHandler().addToSendQueue(new C07PacketPlayerDigging(
+                                        C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
+                                        BlockPos.ORIGIN,
+                                        EnumFacing.DOWN));
+                            }
                         }
                     }
                     break;
