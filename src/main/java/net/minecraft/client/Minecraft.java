@@ -1968,8 +1968,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         });
         theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
             public String call() throws Exception {
-                String s = ClientBrandRetriever.getClientModName();
-                return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.");
+                return "Probably not. Jar signature remains and client brand is untouched.";
             }
         });
         theCrash.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
