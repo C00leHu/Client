@@ -18,13 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenuScreen extends GuiScreen {
-
     private final CFontRenderer roundedSemibold10 = CFonts.SFPT_SEMIBOLD_20;
     private final CFontRenderer roundedMedium9 = CFonts.SFPT_MEDIUM_18;
+    private final CFontRenderer smallTitle = CFonts.SFPT_SEMIBOLD_20;
+    private final CFontRenderer changesFont = CFonts.SFPT_MEDIUM_18;
 
     private final List<Component> buttons = new ArrayList<>();
-
-    private float handleX = -9999;
 
     @Override
     public void initGui() {
@@ -45,12 +44,6 @@ public class MainMenuScreen extends GuiScreen {
         buttons.add(new ButtonComponent("Alts", middleX - buttonWidth / 2f, middleY, buttonWidth, 14, roundedMedium9));
         middleY += 14;
         buttons.add(new ButtonComponent("Exit", middleX - buttonWidth / 2f, middleY, buttonWidth, 14, roundedMedium9));
-
-        buttons.add(new ButtonComponent("Changelog", 5, 5, CFonts.getFont("SFH-Regular", 18)));
-
-        if (handleX == -9999) {
-            handleX = width - 5 - 115;
-        }
     }
 
     @Override
@@ -62,10 +55,52 @@ public class MainMenuScreen extends GuiScreen {
         float middleX = width / 2f;
         float middleY = height / 2f;
 
-        RenderUtil.rectangle(middleX - 143 / 2f, middleY - 16, 143, 14 * (buttons.size() - 1) + 18, new Color(30, 30, 30));
-        roundedSemibold10.drawString(IClient.CLIENT_NAME + " §7" + IClient.CLIENT_VERSION, middleX - 143 / 2f + 3, middleY - 18 + 4.5f, -1);
+        RenderUtil.rectangle(middleX - 143 / 2f, middleY - 16, 143, 14 * (buttons.size()) + 18, new Color(30, 30, 30));
+        roundedSemibold10.drawString(IClient.CLIENT_NAME, middleX - 143 / 2f + 3, middleY - 18 + 4.5f, -1);
+        roundedMedium9.drawString(IClient.CLIENT_VERSION + " | " + IClient.USERNAME, middleX * 2 - roundedMedium9.getStringWidth(IClient.CLIENT_VERSION + " | " + IClient.USERNAME) - 3, middleY * 2 - roundedMedium9.getFontHeight() - 5.5f, new Color(200, 200, 200));
+
+        float panelWidth = 0;
+        for (String change : Vanta.instance.moduleStorage.changelog) {
+            panelWidth = Math.max(panelWidth, changesFont.getStringWidth(change) + 10);
+        }
+
+        float boxHeight = 14 * Vanta.instance.moduleStorage.changelog.size() + 18;
+        middleY = 5;
+
+        RenderUtil.rectangle(5, middleY, panelWidth, boxHeight, new Color(30, 30, 30));
+        smallTitle.drawString("Changelog", 5 + 3.5f, middleY + 4.5f - 1, -1);
+
+        for (int i = 0; i < Vanta.instance.moduleStorage.changelog.size(); i++) {
+            String change = Vanta.instance.moduleStorage.changelog.get(i);
+            float y = middleY + 18 + i * 14 - 1.5f;
+
+            boolean hoverChange = RenderUtil.hovered(mouseX, mouseY, 5 / 2f, y, (panelWidth - 3), 14);
+            RenderUtil.rectangle(5 + 1.5f, y, (panelWidth - 3), 14, hoverChange ? new Color(40, 40, 40) : new Color(35, 35, 35));
+
+            String formattedChange = formatChange(change);
+
+            changesFont.drawYCenteredString(formattedChange, 5 + 3.5f, y + 14 / 2f - 2, Color.WHITE, false);
+        }
 
         buttons.forEach(but -> but.draw(mouseX, mouseY));
+    }
+
+    private static String formatChange(String change) {
+        String formattedChange;
+
+        if (change.startsWith("[+]")) {
+            formattedChange = "§a" + change;
+        } else if (change.startsWith("[-]")) {
+            formattedChange = "§c" + change;
+        } else if (change.startsWith("[#]")) {
+            formattedChange = "§e" + change;
+        } else if (change.startsWith("[~]")) {
+            formattedChange = "§9" + change;
+        } else {
+            formattedChange = "§7" + change;
+        }
+
+        return formattedChange;
     }
 
     @Override
@@ -89,10 +124,6 @@ public class MainMenuScreen extends GuiScreen {
                         break;
                     case "Exit":
                         mc.shutdownMinecraftApplet();
-                        break;
-
-                    case "Changelog":
-                        mc.displayGuiScreen(Vanta.instance.screenStorage.getT(ChangelogScreen.class));
                         break;
                 }
             }

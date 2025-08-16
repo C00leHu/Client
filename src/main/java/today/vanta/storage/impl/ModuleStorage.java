@@ -22,11 +22,10 @@ public class ModuleStorage extends Storage<Module> {
     public List<String> changelog = new ArrayList<>();
 
     public ModuleStorage() {
-        changelog.add("[+] Added 'Skin color' sorting to KillAura");
-        changelog.add("[+] Added AntiBot module");
-        changelog.add("[+] Added Speed[ONCP, NCP] module");
-        changelog.add("[+] Added Scaffold[ONCP, NCP] module");
-        changelog.add("[+] Added Velocity[Basic] module");
+        changelog.add("[+] Added 'Auto-block' to KillAura");
+        changelog.add("[#] Fixed font scaling issues");
+        changelog.add("[#] Fixed arraylist height");
+        changelog.add("[~] Improved main menu");
     }
 
     @Override
