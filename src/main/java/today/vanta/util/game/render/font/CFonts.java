@@ -32,6 +32,7 @@ public class CFonts {
     }
 
     private static Font getAwtFont(InputStream inputStream, float size) {
+        size = isOracleVm() ? size / 2.0f : size;
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             return font.deriveFont(size);
@@ -41,4 +42,7 @@ public class CFonts {
         }
     }
 
+    public static boolean isOracleVm() {
+        return System.getProperty("java.vm.vendor").equals("Oracle Corporation");
+    }
 }
