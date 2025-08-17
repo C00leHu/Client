@@ -94,9 +94,10 @@ public class AltLoginScreen extends GuiScreen {
                                     }
 
                                     mc.session = session;
-                                    initGui();
                                     Vanta.instance.logger.info("Logged into {}! (microsoft)", session.getUsername());
                                     AccountSavingUtil.saveConfig();
+
+                                    mc.addScheduledTask(this::initGui);
                                 })
                                 .exceptionally(error -> {
                                     Vanta.instance.logger.error("Failed to login due to {}", error.getMessage());
@@ -122,7 +123,6 @@ public class AltLoginScreen extends GuiScreen {
                                             Vanta.instance.logger.info("Logged into {}! (microsoft)", account.username);
                                             mc.session = new Session(account.username, account.password, account.token, "legacy");
                                         }
-                                        aC.refresh();
                                     } else {
                                         Vanta.instance.logger.info("Removed {}!", account.username);
                                         iterator.remove();

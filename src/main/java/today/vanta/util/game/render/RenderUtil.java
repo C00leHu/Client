@@ -1,6 +1,7 @@
 package today.vanta.util.game.render;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -131,27 +132,11 @@ public class RenderUtil {
         GlStateManager.disableBlend();
     }
 
-    public static void image(int textureId, int x, int y, int width, int height) {
-        if (textureId == 0) return;
-
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GlStateManager.enableTexture2D();
-        GlStateManager.bindTexture(textureId);
-
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glTexCoord2f(0, 0);
-        GL11.glVertex2f(x, y);
-        GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(x + width, y);
-        GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(x + width, y + height);
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(x, y + height);
-        GL11.glEnd();
-
-        GlStateManager.disableBlend();
-        GlStateManager.bindTexture(0);
+    public static void image(int image, float x, float y, float width, float height) {
+        color(new Color(255, 255, 255));
+        TextureUtil.bindTexture(image);
+        Gui.drawModalRectWithCustomSizedTexture((int) x, (int) y, (float) 0, (float) 0, (int) width, (int) height, width, height);
+        color(new Color(255, 255, 255));
     }
 
     public static void color(Color color) {
@@ -187,14 +172,8 @@ public class RenderUtil {
         GlStateManager.popMatrix();
     }
 
-    public static int bindBufferedImage(BufferedImage image) {
-        int textureId = TextureUtil.uploadTextureImageAllocate(TextureUtil.glGenTextures(), image, false, false);
-        GlStateManager.bindTexture(textureId);
-
-        return textureId;
-    }
-
     public static BufferedImage base64ToBufferedImage(String base64Image) {
+        base64Image = base64Image.replace("\\u003d", "=");
         try {
             if (base64Image.startsWith("data:image")) {
                 base64Image = base64Image.split(",")[1];

@@ -25,6 +25,7 @@ public class ModuleStorage extends Storage<Module> {
         changelog.add("[+] Added FastUse");
         changelog.add("[+] Added 'Auto-block' to KillAura");
         changelog.add("[#] Fixed font scaling issues");
+        changelog.add("[#] Fixed alt manager skins not loading");
         changelog.add("[#] Fixed arraylist height");
         changelog.add("[~] Improved main menu");
     }
