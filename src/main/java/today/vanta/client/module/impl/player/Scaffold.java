@@ -176,7 +176,7 @@ public class Scaffold extends Module {
                 }
             }
 
-            if (downwards.getValue()) {
+            if (downwards.getValue() && mc.gameSettings.keyBindSneak.isKeyDown()) {
                 posY = mc.thePlayer.posY - 1.8;
             } else if (mc.thePlayer.posY < posY || (!mc.thePlayer.onGround && !MovementUtil.isMoving()) || mc.thePlayer.posY - posY > 6 || !keepY.getValue()) {
                 posY = mc.thePlayer.posY - 0.9;
