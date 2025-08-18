@@ -27,7 +27,7 @@ import today.vanta.util.system.math.Counter;
 
 public class KillAura extends Module {
     public final StringSetting
-    attackMode = StringSetting.builder()
+            attackMode = StringSetting.builder()
             .name("Attack mode")
             .value("Single")
             .values("Single")
@@ -42,7 +42,7 @@ public class KillAura extends Module {
     autoBlockMode = StringSetting.builder()
             .name("Auto-block mode")
             .value("None")
-            .values("None", "Vanilla")
+            .values("None", "Vanilla", "Packet")
             .build();
 
     private final StringSetting swingMode;
@@ -63,7 +63,7 @@ public class KillAura extends Module {
     private final NumberSetting maxCPS, minCPS;
 
     public final BooleanSetting
-    raytrace = BooleanSetting.builder()
+            raytrace = BooleanSetting.builder()
             .name("Raytrace")
             .value(true)
             .build(),
@@ -152,6 +152,7 @@ public class KillAura extends Module {
 
     private final Counter attackCounter = new Counter();
     private float rangeFix = 3;
+    private boolean isBlocking = false;
 
     private Rotation rots;
 
@@ -202,12 +203,7 @@ public class KillAura extends Module {
             switch (attackMode.getValue()) {
                 case "Single":
                     if (attackCounter.hasElapsed(calculateAttackDelay(), true) && Vanta.instance.processorStorage.getT(TargetProcessor.class).target.getDistanceToEntity(mc.thePlayer) <= rangeFix) {
-                        if (autoBlockMode.getValue().equals("Vanilla")) {
-                            if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
-                                mc.getNetHandler().addToSendQueue(
-                                        new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
-                            }
-                        }
+                        peformBlock(false);
 
                         if (!noSwing.getValue())
                             mc.thePlayer.swingItem();
@@ -223,14 +219,7 @@ public class KillAura extends Module {
                                 break;
                         }
 
-                        if (autoBlockMode.getValue().equals("Vanilla")) {
-                            if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
-                                mc.getNetHandler().addToSendQueue(new C07PacketPlayerDigging(
-                                        C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
-                                        BlockPos.ORIGIN,
-                                        EnumFacing.DOWN));
-                            }
-                        }
+                        peformBlock(true);
                     }
                     break;
             }
@@ -240,6 +229,58 @@ public class KillAura extends Module {
     private long calculateAttackDelay() {
         long cps = (minCPS.getValue().longValue() + maxCPS.getValue().longValue()) / 2;
         return 1000 / cps;
+    }
+
+    private void peformBlock(boolean stop) {
+        if (!stop) {
+            switch (autoBlockMode.getValue()) {
+                case "Vanilla":
+                    startVanillaBlock();
+                    break;
+                case "Packet":
+                    startPacketBlock();
+                    break;
+            }
+        } else {
+            switch (autoBlockMode.getValue()) {
+                case "Vanilla":
+                    stopVanillaBlock();
+                    break;
+                case "Packet":
+                    stopPacketBlock();
+                    break;
+            }
+        }
+    }
+
+    private void startVanillaBlock() {
+        if (!isBlocking && mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+            mc.thePlayer.setItemInUse(mc.thePlayer.getHeldItem(), mc.thePlayer.getHeldItem().getMaxItemUseDuration());
+            isBlocking = true;
+        }
+    }
+
+    private void startPacketBlock() {
+        if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+            mc.getNetHandler().addToSendQueue(
+                    new C08PacketPlayerBlockPlacement(mc.thePlayer.getHeldItem()));
+        }
+    }
+
+    private void stopPacketBlock() {
+        if (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) {
+            mc.getNetHandler().addToSendQueue(new C07PacketPlayerDigging(
+                    C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
+                    BlockPos.ORIGIN,
+                    EnumFacing.DOWN));
+        }
+    }
+
+    private void stopVanillaBlock() {
+        if (isBlocking) {
+            mc.thePlayer.stopUsingItem();
+            isBlocking = false;
+        }
     }
 
     @Override
