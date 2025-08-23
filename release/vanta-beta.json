@@ -571,21 +571,21 @@
         "classifiers": {
           "natives-linux": {
             "path": "io/github/spair/imgui-java-natives-linux/1.86.10/imgui-java-natives-linux-1.86.10.jar",
-            "sha1": "2cbb653d78402699242933d510372493ee334df8",
-            "size": 1699608,
-            "url": "https://repo1.maven.org/maven2/io/github/spair/imgui-java-natives-linux/1.86.10/imgui-java-natives-linux-1.86.10.jar"
+            "sha1": "8d7e3676d0204c744eb948a279800984d1c04d57",
+            "size": 1699414,
+            "url": "https://github.com/VantaClient/Client/raw/refs/heads/main/release/imgui-java-natives-linux-1.86.10.jar"
           },
           "natives-osx": {
             "path": "io/github/spair/imgui-java-natives-macos/1.86.10/imgui-java-natives-macos-1.86.10.jar",
-            "sha1": "c9f46fe7b88f7b7275b5ef8e32c85892f77d180d",
-            "size": 1541597,
-            "url": "https://repo1.maven.org/maven2/io/github/spair/imgui-java-natives-macos/1.86.10/imgui-java-natives-macos-1.86.10.jar"
+            "sha1": "ddf1e434090125e0c4bd0b1f9952a4f163c87457",
+            "size": 1541403,
+            "url": "https://github.com/VantaClient/Client/raw/refs/heads/main/release/imgui-java-natives-macos-1.86.10.jar"
           },
           "natives-windows": {
             "path": "io/github/spair/imgui-java-natives-windows/1.86.10/imgui-java-natives-windows-1.86.10.jar",
-            "sha1": "89acf6ceff6de4e4fdb14ba8d0cab17d18004557",
-            "size": 1863730,
-            "url": "https://repo1.maven.org/maven2/io/github/spair/imgui-java-natives-windows/1.86.10/imgui-java-natives-windows-1.86.10.jar"
+            "sha1": "61e276df0cb65b625e9c3f2e366f615ccc990a85",
+            "size": 1863536,
+            "url": "https://github.com/VantaClient/Client/raw/refs/heads/main/release/imgui-java-natives-windows-1.86.10.jar"
           }
         }
       },
