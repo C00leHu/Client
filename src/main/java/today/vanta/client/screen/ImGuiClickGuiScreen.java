@@ -13,12 +13,11 @@ import today.vanta.client.setting.impl.StringSetting;
 import today.vanta.util.client.IClient;
 import today.vanta.util.system.lwjgl.imgui.ImGuiImpl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ImGuiClickGuiScreen extends GuiScreen implements IClient {
     private Category currentCategory = Category.COMBAT;
+    private final Map<Category, Module> lastModulePerCategory = new EnumMap<>(Category.class);
     private Module currentModule;
 
     @Override
@@ -31,7 +30,13 @@ public class ImGuiClickGuiScreen extends GuiScreen implements IClient {
 
                     for (Category category : Category.values()) {
                         if (ImGui.button(category.name, fullWidth, 50)) {
+                            if (currentModule != null) {
+                                lastModulePerCategory.put(currentCategory, currentModule);
+                            }
+
                             currentCategory = category;
+
+                            currentModule = lastModulePerCategory.getOrDefault(category, null);
                         }
                     }
 
@@ -45,6 +50,7 @@ public class ImGuiClickGuiScreen extends GuiScreen implements IClient {
                     for (Module module : Vanta.instance.moduleStorage.getModulesByCategory(currentCategory)) {
                         if (ImGui.button(module.name, fullWidth, 20)) {
                             currentModule = module;
+                            lastModulePerCategory.put(currentCategory, module);
                         }
                     }
                     ImGui.endChild();
