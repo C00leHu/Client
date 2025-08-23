@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 import today.vanta.client.module.Category;
 import today.vanta.client.module.Module;
 import today.vanta.client.screen.ClickGUIScreen;
-import today.vanta.client.screen.ImGuiClickGuiScreen;
+import today.vanta.client.screen.ImGuiClickGUIScreen;
 import today.vanta.client.setting.impl.BooleanSetting;
 import today.vanta.client.setting.impl.StringSetting;
 
@@ -32,7 +32,7 @@ public class ClickGUI extends Module {
     }
 
     private final ClickGUIScreen clickGUIScreen = new ClickGUIScreen();
-    private final ImGuiClickGuiScreen imGuiClickGuiScreen = new ImGuiClickGuiScreen();
+    private final ImGuiClickGUIScreen imGuiClickGuiScreen = new ImGuiClickGUIScreen();
 
     @Override
     public void onEnable() {

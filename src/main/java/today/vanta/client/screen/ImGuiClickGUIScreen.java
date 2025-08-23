@@ -15,7 +15,7 @@ import today.vanta.util.system.lwjgl.imgui.ImGuiImpl;
 
 import java.util.*;
 
-public class ImGuiClickGuiScreen extends GuiScreen implements IClient {
+public class ImGuiClickGUIScreen extends GuiScreen implements IClient {
     private Category currentCategory = Category.COMBAT;
     private final Map<Category, Module> lastModulePerCategory = new EnumMap<>(Category.class);
     private Module currentModule;
