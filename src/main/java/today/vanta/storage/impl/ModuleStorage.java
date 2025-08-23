@@ -22,13 +22,7 @@ public class ModuleStorage extends Storage<Module> {
     public List<String> changelog = new ArrayList<>();
 
     public ModuleStorage() {
-        changelog.add("[+] Added FastUse");
-        changelog.add("[+] Added 'Auto-block' to KillAura");
-        changelog.add("[#] Fixed font scaling issues");
-        changelog.add("[~] 'Downwards' scaffold goes down when sneaking");
-        changelog.add("[#] Fixed alt manager skins not loading");
-        changelog.add("[#] Fixed arraylist height");
-        changelog.add("[~] Improved main menu");
+        changelog.add("[+] Added ImGui ClickGUI");
     }
 
     @Override
