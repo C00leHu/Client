@@ -52,20 +52,13 @@ public class MainMenuScreen extends GuiScreen {
 
         RenderUtil.rectangle(0, 0, width, height, new Color(20, 20, 20));
 
-        float middleX = width / 2f;
-        float middleY = height / 2f;
-
-        RenderUtil.rectangle(middleX - 143 / 2f, middleY - 16, 143, 14 * (buttons.size()) + 18, new Color(30, 30, 30));
-        roundedSemibold10.drawString(IClient.CLIENT_NAME, middleX - 143 / 2f + 3, middleY - 18 + 4.5f, -1);
-        roundedMedium9.drawString(IClient.CLIENT_VERSION + " | " + IClient.USERNAME, middleX * 2 - roundedMedium9.getStringWidth(IClient.CLIENT_VERSION + " | " + IClient.USERNAME) - 3, middleY * 2 - roundedMedium9.getFontHeight() - 5.5f, new Color(200, 200, 200));
-
         float panelWidth = 0;
         for (String change : Vanta.instance.moduleStorage.changelog) {
             panelWidth = Math.max(panelWidth, changesFont.getStringWidth(change) + 10);
         }
 
         float boxHeight = 14 * Vanta.instance.moduleStorage.changelog.size() + 18;
-        middleY = 5;
+        float middleY = 5;
 
         RenderUtil.rectangle(5, middleY, panelWidth, boxHeight, new Color(30, 30, 30));
         smallTitle.drawString("Changelog", 5 + 3.5f, middleY + 4.5f - 1, -1);
@@ -74,13 +67,19 @@ public class MainMenuScreen extends GuiScreen {
             String change = Vanta.instance.moduleStorage.changelog.get(i);
             float y = middleY + 18 + i * 14 - 1.5f;
 
-            boolean hoverChange = RenderUtil.hovered(mouseX, mouseY, 5 / 2f, y, (panelWidth - 3), 14);
-            RenderUtil.rectangle(5 + 1.5f, y, (panelWidth - 3), 14, hoverChange ? new Color(40, 40, 40) : new Color(35, 35, 35));
+            RenderUtil.rectangle(5 + 1.5f, y, (panelWidth - 3), 14, new Color(35, 35, 35));
 
             String formattedChange = formatChange(change);
 
             changesFont.drawYCenteredString(formattedChange, 5 + 3.5f, y + 14 / 2f - 2, Color.WHITE, false);
         }
+
+        float middleX = width / 2f;
+        middleY = height / 2f;
+
+        RenderUtil.rectangle(middleX - 143 / 2f, middleY - 16, 143, 14 * (buttons.size()) + 18, new Color(30, 30, 30));
+        roundedSemibold10.drawString(IClient.CLIENT_NAME, middleX - 143 / 2f + 3, middleY - 18 + 4.5f, -1);
+        roundedMedium9.drawString(IClient.CLIENT_VERSION + " | " + IClient.USERNAME, middleX * 2 - roundedMedium9.getStringWidth(IClient.CLIENT_VERSION + " | " + IClient.USERNAME) - 3, middleY * 2 - roundedMedium9.getFontHeight() - 5.5f, new Color(200, 200, 200));
 
         buttons.forEach(but -> but.draw(mouseX, mouseY));
     }
