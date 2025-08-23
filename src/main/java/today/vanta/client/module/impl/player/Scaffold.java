@@ -31,7 +31,7 @@ import java.util.Random;
 
 public class Scaffold extends Module {
     private final StringSetting
-    rotationMode = StringSetting.builder()
+            rotationMode = StringSetting.builder()
             .name("Rotation mode")
             .value("Simple")
             .values("Simple", "Godbridge")
@@ -69,7 +69,7 @@ public class Scaffold extends Module {
             .hide(() -> !sneak.getValue());
 
     private final NumberSetting
-    sneakDelay = NumberSetting.builder()
+            sneakDelay = NumberSetting.builder()
             .name("Sneak delay (ms)")
             .value(57)
             .min(0)
@@ -86,7 +86,7 @@ public class Scaffold extends Module {
             .hide(() -> !sneak.getValue() || !(sneakMode.getValue().equals("Eagle") || sneakMode.getValue().equals("Blatant")));
 
     private final BooleanSetting
-    keepY = BooleanSetting.builder()
+            keepY = BooleanSetting.builder()
             .name("Keep Y")
             .value(false)
             .build()

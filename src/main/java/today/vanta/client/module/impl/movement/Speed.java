@@ -9,7 +9,7 @@ import today.vanta.util.game.player.MovementUtil;
 
 public class Speed extends Module {
     private final StringSetting
-    mode = StringSetting.builder()
+            mode = StringSetting.builder()
             .name("Mode")
             .value("OldNCP")
             .values("OldNCP", "NCP")

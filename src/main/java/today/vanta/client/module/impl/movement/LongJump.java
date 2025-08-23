@@ -17,25 +17,26 @@ public class LongJump extends Module {
             .values("NCP")
             .build();
 
-    private final NumberSetting timer = NumberSetting.builder()
+    private final NumberSetting
+            timer = NumberSetting.builder()
             .name("Timer speed")
             .value(1)
             .min(0.1)
             .max(2)
             .places(1)
             .build()
-            .hide(() -> !mode.getValue().equals("NCP"));
+            .hide(() -> !mode.getValue().equals("NCP")),
 
-    private final NumberSetting groundSpeed = NumberSetting.builder()
+    groundSpeed = NumberSetting.builder()
             .name("Ground speed")
             .value(0.4)
             .min(0.1)
             .max(3)
             .places(1)
             .build()
-            .hide(() -> !mode.getValue().equals("NCP"));
+            .hide(() -> !mode.getValue().equals("NCP")),
 
-    private final NumberSetting airSpeed = NumberSetting.builder()
+    airSpeed = NumberSetting.builder()
             .name("Air speed")
             .value(1.4)
             .min(0.1)
@@ -46,7 +47,7 @@ public class LongJump extends Module {
 
     public LongJump() {
         super("LongJump", "Makes you jump longer.", Category.MOVEMENT);
-        displayNames = new String[] {"LongJump", "Long Jump"};
+        displayNames = new String[]{"LongJump", "Long Jump"};
     }
 
     private int offGroundTicks;

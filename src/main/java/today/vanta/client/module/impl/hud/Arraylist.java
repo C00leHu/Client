@@ -37,7 +37,7 @@ public class Arraylist extends Module {
             .build();
 
     private final BooleanSetting
-    fontShadow = BooleanSetting.builder()
+            fontShadow = BooleanSetting.builder()
             .name("Font shadow")
             .value(true)
             .build(),
@@ -61,10 +61,9 @@ public class Arraylist extends Module {
             .build()
             .hide(() -> !background.getValue());
 
-
     public Arraylist() {
         super("Arraylist", "Draws an arraylist of modules.", Category.HUD);
-        displayNames = new String[] {"Arraylist", "ArrayList", "Array List", "ModuleList", "Module List"};
+        displayNames = new String[]{"Arraylist", "ArrayList", "Array List", "ModuleList", "Module List"};
         hideFromArraylist = true;
         setEnabled(true);
     }
@@ -105,7 +104,6 @@ public class Arraylist extends Module {
                 moduleName += " §f" + module.getSuffix();
             }
 
-            float scaleFactor = (float) Math.sqrt(Math.min(1.2F, (float) font.getStringWidth(moduleName) / 63.0F));
             float x = event.scaledResolution.getScaledWidth() - font.getStringWidth(moduleName) - 5;
 
             if (background.getValue()) {

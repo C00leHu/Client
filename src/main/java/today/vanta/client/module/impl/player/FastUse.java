@@ -7,7 +7,8 @@ import today.vanta.client.setting.impl.NumberSetting;
 import today.vanta.util.game.events.EventListen;
 
 public class FastUse extends Module {
-    private final NumberSetting rightDelay = NumberSetting.builder()
+    private final NumberSetting
+            rightDelay = NumberSetting.builder()
             .name("RMB delay")
             .value(0)
             .min(0)
@@ -25,7 +26,7 @@ public class FastUse extends Module {
 
     public FastUse() {
         super("FastUse", "Makes you use items faster", Category.PLAYER);
-        displayNames = new String[] {"FastUse", "Fast Use", "FastPlace", "Fast Place", "NoClickDelay", "No Click Delay"};
+        displayNames = new String[]{"FastUse", "Fast Use", "FastPlace", "Fast Place", "NoClickDelay", "No Click Delay"};
     }
 
     @EventListen
