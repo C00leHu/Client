@@ -103,6 +103,7 @@ import today.vanta.client.event.impl.game.world.LoadWorldEvent;
 import today.vanta.client.event.impl.system.KeyboardEvent;
 import today.vanta.util.client.IClient;
 import today.vanta.util.game.events.EventState;
+import today.vanta.util.system.lwjgl.imgui.ImGuiImpl;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -1394,6 +1395,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.dispatchKeypresses();
 
                 if (Keyboard.getEventKeyState()) {
+                    ImGuiImpl.key(k);
+
                     if (k == 62 && this.entityRenderer != null) {
                         this.entityRenderer.switchUseShader();
                     }

@@ -8,9 +8,11 @@ import today.vanta.util.client.IClient;
 import today.vanta.util.game.events.bus.EventBus;
 import today.vanta.util.system.FileUtil;
 import today.vanta.util.system.VantaFile;
+import today.vanta.util.system.lwjgl.imgui.ImGuiImpl;
 
-public class Vanta {
-    public final static Vanta instance = new Vanta();
+public enum Vanta {
+    instance;
+
     public final Logger logger = LogManager.getLogger();
     public final EventBus eventBus = new EventBus();
 
@@ -27,11 +29,11 @@ public class Vanta {
 
     public void start() {
         try {
+            ImGuiImpl.init();
             ViaMCP.create();
-
             ViaMCP.INSTANCE.initAsyncSlider();
         } catch (Exception e) {
-            logger.warn("Failed to create an instance of ViaMCP");
+            logger.warn("Failed to initialise Vanta client");
         }
 
         moduleStorage = new ModuleStorage();

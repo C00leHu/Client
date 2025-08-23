@@ -4,12 +4,14 @@ import org.lwjgl.input.Keyboard;
 import today.vanta.client.module.Category;
 import today.vanta.client.module.Module;
 import today.vanta.client.screen.ClickGUIScreen;
+import today.vanta.client.screen.ImGuiClickGuiScreen;
 import today.vanta.client.setting.impl.BooleanSetting;
+import today.vanta.client.setting.impl.StringSetting;
 
 public class ClickGUI extends Module {
 
-    public BooleanSetting
-    pauseGame = BooleanSetting.builder()
+    public final BooleanSetting
+            pauseGame = BooleanSetting.builder()
             .name("Pause singleplayer")
             .value(false)
             .build(),
@@ -19,22 +21,32 @@ public class ClickGUI extends Module {
             .value(true)
             .build();
 
+    private final StringSetting design = StringSetting.builder()
+            .name("Design")
+            .value("Dropdown").values("Dropdown", "ImGui")
+            .build();
+
     public ClickGUI() {
         super("ClickGUI", "Opens up the ClickGUI.", Category.CLIENT, Keyboard.KEY_RSHIFT);
         hideFromArraylist = true;
     }
 
-    private ClickGUIScreen clickGUIScreen;
+    private final ClickGUIScreen clickGUIScreen = new ClickGUIScreen();
+    private final ImGuiClickGuiScreen imGuiClickGuiScreen = new ImGuiClickGuiScreen();
 
     @Override
     public void onEnable() {
-        super.onEnable();
+        switch (design.getValue()) {
+            case "Dropdown": {
+                mc.displayGuiScreen(clickGUIScreen);
+                break;
+            }
 
-        if (clickGUIScreen == null) {
-            clickGUIScreen = new ClickGUIScreen();
+            case "ImGui": {
+                mc.displayGuiScreen(imGuiClickGuiScreen);
+                break;
+            }
         }
-
-        mc.displayGuiScreen(clickGUIScreen);
 
         setEnabled(false);
     }

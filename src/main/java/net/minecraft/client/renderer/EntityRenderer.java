@@ -72,6 +72,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
+import today.vanta.util.system.lwjgl.imgui.ImGuiImpl;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -1118,6 +1119,9 @@ public class EntityRenderer implements IResourceManagerReloadListener {
                     throw new ReportedException(crashreport);
                 }
             }
+
+            ImGuiImpl.scroll();
+            ImGuiImpl.render(mc.getFramebuffer(), partialTicks);
         }
 
         this.frameFinish();

@@ -31,6 +31,51 @@
         </repository>
     </repositories>
 
+    <profiles>
+        <profile>
+            <id>lwjgl-natives-linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>linux</name>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <lwjgl.natives>natives-linux</lwjgl.natives>
+                <imgui.natives>imgui-java-natives-linux</imgui.natives>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>lwjgl-natives-macos</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                    <arch>x86_64</arch>
+                </os>
+            </activation>
+            <properties>
+                <lwjgl.natives>natives-osx</lwjgl.natives>
+                <imgui.natives>imgui-java-natives-macos</imgui.natives>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>lwjgl-natives-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+            <properties>
+                <lwjgl.natives>natives-windows</lwjgl.natives>
+                <imgui.natives>imgui-java-natives-windows</imgui.natives>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>com.viaversion</groupId>
@@ -240,6 +285,19 @@
             <groupId>org.lwjgl.lwjgl</groupId>
             <artifactId>lwjgl-platform</artifactId>
             <version>2.9.4-nightly-20150209</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.spair</groupId>
+            <artifactId>imgui-java-binding</artifactId>
+            <version>1.86.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.spair</groupId>
+            <artifactId>${imgui.natives}</artifactId>
+            <version>1.86.10</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
