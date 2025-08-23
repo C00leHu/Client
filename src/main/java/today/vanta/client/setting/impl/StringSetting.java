@@ -26,13 +26,13 @@ public class StringSetting extends Setting<String> {
         setValue(allValues[previousIndex]);
     }
 
-    private int index() {
+    public int index() {
         for (int i = 0; i < allValues.length; i++) {
             if (allValues[i].equals(getValue())) {
                 return i;
             }
         }
-        return -1;
+        return 0;
     }
 
     public static StringSettingBuilder builder() {
